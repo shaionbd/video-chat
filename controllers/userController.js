@@ -29,18 +29,15 @@ module.exports = function(app){
 	// routing pages
 	// 
 	app.get('/', function(req, res){
-		
-		User.find({}, function(err, data){
+		if(req.session.login){
+			User.find({}, function(err, data){
 		  	if(err) throw err;
 		  	console.log("Users: "+data);
 		  	res.render('dashboard', {users: data});
 		});
-
-		//if(req.session.login){
-			
-		//}else{
-			//res.redirect('/login');
-		//}
+		}else{
+			res.redirect('/login');
+		}
 		
 	});
 
